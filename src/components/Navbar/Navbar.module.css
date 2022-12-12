@@ -1,0 +1,10 @@
+.navbar {
+    grid-area: n;
+    background-color: burlywood;
+}
+
+.item {
+    color: white;
+    text-decoration: none;
+    margin: auto;
+}
