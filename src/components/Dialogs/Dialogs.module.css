@@ -2,12 +2,6 @@
     display: flex;
 }
 
-.dialog a {
-    color: white;
-    text-decoration: none;
-    margin: auto;
-}
-
 .dialogsItem {
     width: 300px;
 }
