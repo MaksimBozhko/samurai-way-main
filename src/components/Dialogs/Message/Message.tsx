@@ -1,7 +1,7 @@
 import React from 'react';
 
 type MessageProps = {
-    id: number
+    id: string
     message: string
 }
 

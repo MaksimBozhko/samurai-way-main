@@ -1,3 +1,5 @@
+import {v1} from "uuid";
+
 export type StateProps = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
@@ -7,6 +9,7 @@ export type ProfilePageType = {
     posts: Array<PostPropsType>
 }
 export type PostPropsType = {
+    id: string
     message: string
     likesCount: number
 }
@@ -15,34 +18,49 @@ export type DialogsPageType = {
     messages: Array<MessagesType>
 }
 export type DialogsType = {
-    id: number
+    id: string
     name: string
 }
 export type MessagesType = {
-    id: number
+    id: string
     message: string
 }
 
-const state: StateProps = {
-    profilePage: {
-        posts: [
-            {message: 'HI!!!', likesCount: 10},
-            {message: 'hello', likesCount: 20},
-        ]
+let store = {
+    _callSubscriber () {
     },
-    dialogsPage: {
-        dialogs: [
-            {id: 1, name: 'Anton'},
-            {id: 2, name: 'Sveta'},
-            {id: 3, name: 'Dasha'},
-            {id: 4, name: 'Aleksandr'},
-        ],
-        messages: [
-            {id: 1, message: 'hello!'},
-            {id: 2, message: 'how are you?'},
-            {id: 3, message: 'I\'m ok'},
-        ]
+    _state: {
+        profilePage: {
+            posts: [
+                {id:v1() , message: 'HI!!!', likesCount: 10},
+                {id:v1() , message: 'hello', likesCount: 20},
+            ]
+        },
+        dialogsPage: {
+            dialogs: [
+                {id: v1(), name: 'Anton'},
+                {id: v1(), name: 'Sveta'},
+                {id: v1(), name: 'Dasha'},
+                {id: v1(), name: 'Aleksandr'},
+            ],
+            messages: [
+                {id: v1(), message: 'hello!'},
+                {id: v1(), message: 'how are you?'},
+                {id: v1(), message: 'I\'m ok'},
+            ]
+        }
+    },
+    subscribe(observer: any) {
+        this._callSubscriber = observer
+    },
+    getState () {
+        return this._state
+    },
+    addUser(message: string) {
+        const newPost = {id:v1() , message: message, likesCount: 0}
+        this._state.profilePage.posts = [...this._state.profilePage.posts, newPost]
+        this._callSubscriber()
     }
 }
 
-export default state
+export default store

@@ -6,6 +6,7 @@ import {DialogsPageType} from "../../redux/state";
 
 type DialogsType = {
     dialogsPage: DialogsPageType
+
 }
 
 const Dialogs = ({dialogsPage}: DialogsType) => {
