@@ -9,10 +9,10 @@ import {StateProps} from "./redux/state";
 
 type AppProps = {
     state: StateProps
-    addUser: (message: string) => void
+    dispatch: (action:any) => void
 }
 
-function App({state, addUser}: AppProps) {
+function App({state, dispatch}: AppProps) {
 
     return (
         <BrowserRouter>
@@ -20,7 +20,7 @@ function App({state, addUser}: AppProps) {
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path='/profile' render={() => <Profile profilePage={state.profilePage} addUser={addUser} />} />
+                    <Route path='/profile' render={() => <Profile profilePage={state.profilePage} dispatch={dispatch} />} />
                     <Route exact path='/dialogs' render={() => <Dialogs dialogsPage={state.dialogsPage} />} />
                 </div>
             </div>

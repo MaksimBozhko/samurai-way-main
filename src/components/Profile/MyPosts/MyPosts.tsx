@@ -1,20 +1,20 @@
 import React, {ChangeEvent, useState} from 'react';
 import s from './MyPosts.module.css'
-import {PostPropsType} from "../../../redux/state";
+import {addPostAC, PostPropsType} from "../../../redux/state";
 import Post from "./Post/Post";
 
 type MyPostsProps = {
     posts: Array<PostPropsType>
-    addUser: (message: string) => void
+    dispatch: (action: any) => void
 }
 
-const MyPosts = ({posts, addUser}: MyPostsProps) => {
+const MyPosts = ({posts, dispatch}: MyPostsProps) => {
     const [title, setTitle] = useState<string>('')
     const onChangeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setTitle(e.currentTarget.value)
     }
     const onClickButtonHandler = () => {
-        addUser(title)
+        dispatch(addPostAC(title))
         setTitle('')
     }
     return (

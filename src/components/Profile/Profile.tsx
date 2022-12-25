@@ -6,14 +6,14 @@ import {ProfilePageType} from "../../redux/state";
 
 type ProfileProps = {
     profilePage: ProfilePageType
-    addUser: (message: string) => void
+    dispatch: (action: any) => void
 }
 
-const Profile = ({profilePage, addUser}: ProfileProps) => {
+const Profile = ({profilePage, dispatch}: ProfileProps) => {
     return (
         <div className={s.content}>
             <ProfileInfo/>
-            <MyPosts posts={profilePage.posts} addUser={addUser} />
+            <MyPosts posts={profilePage.posts} dispatch={dispatch} />
         </div>
     );
 };
