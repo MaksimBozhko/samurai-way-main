@@ -1,16 +1,17 @@
 import React from 'react';
-import Post, {PostPropsType} from "./Post/Post";
 import s from './MyPosts.module.css'
+import {PostPropsType} from "../../../redux/state";
+import Post from "./Post/Post";
 
-const MyPosts = () => {
-    const post:Array<PostPropsType> = [
-        {message:'HI!!!', likesCount:10},
-        {message:'hello', likesCount:20},
-    ]
+type MyPostsProps = {
+    posts: Array<PostPropsType>
+}
 
+const MyPosts = ({posts}: MyPostsProps) => {
+    console.log(posts)
     return (
         <div className={s.postsBlock}>
-            <h3>myPosts</h3>
+           <h3>myPosts</h3>
             <div>
                 <div>
                     <textarea></textarea>
@@ -20,9 +21,7 @@ const MyPosts = () => {
                 </div>
             </div>
             <div className={s.posts}>
-                {post.map(el => <Post message={el.message} likesCount={el.likesCount} />)}
-                {/*<Post  message={post[0].message} like={post[0].like} />
-                <Post message={post[1].message} like={post[1].like} />*/}
+                {posts.map(el => <Post message={el.message} likesCount={el.likesCount} />)}
             </div>
         </div>
     );
