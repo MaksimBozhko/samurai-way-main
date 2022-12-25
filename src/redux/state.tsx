@@ -1,6 +1,7 @@
 import {v1} from "uuid";
 
 const ADD_POST = 'ADD-POST';
+const ADD_MESSAGE = 'ADD_MESSAGE';
 
 export type StateProps = {
     profilePage: ProfilePageType
@@ -64,10 +65,19 @@ let store = {
                 const newPost = {id: v1(), message: action.message, likesCount: 0}
                 this._state.profilePage.posts = [...this._state.profilePage.posts, newPost]
                 this._callSubscriber()
+                break
+
+            case ADD_MESSAGE:
+                const newMessage = {id: v1(), message: action.message}
+                this._state.dialogsPage.messages = [...this._state.dialogsPage.messages, newMessage]
+                this._callSubscriber()
+                break
         }
     }
 }
 
+
 export const addPostAC = (title: string) => ({type: ADD_POST, message: title})
+export const addMessageAC = (message: string) => ({type: ADD_MESSAGE, message: message})
 
 export default store

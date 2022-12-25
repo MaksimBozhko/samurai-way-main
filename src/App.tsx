@@ -21,7 +21,7 @@ function App({state, dispatch}: AppProps) {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route path='/profile' render={() => <Profile profilePage={state.profilePage} dispatch={dispatch} />} />
-                    <Route exact path='/dialogs' render={() => <Dialogs dialogsPage={state.dialogsPage} />} />
+                    <Route exact path='/dialogs' render={() => <Dialogs dialogsPage={state.dialogsPage} dispatch={dispatch} />} />
                 </div>
             </div>
         </BrowserRouter>
