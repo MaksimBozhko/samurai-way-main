@@ -3,7 +3,22 @@ import {v1} from "uuid";
 
 const ADD_POST = 'ADD-POST';
 
-const ProfileReducer = (state: any, action: any) => {
+type InitialStateType = {
+    posts: Array<PostPropsType>
+}
+export type PostPropsType = {
+    id: string
+    message: string
+    likesCount: number
+}
+const initialState: InitialStateType = {
+    posts: [
+        {id: v1(), message: 'HI!!!', likesCount: 10},
+        {id: v1(), message: 'hello', likesCount: 20},
+    ]
+}
+
+const ProfileReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case ADD_POST:
             const newPost = {id: v1(), message: action.message, likesCount: 0}
