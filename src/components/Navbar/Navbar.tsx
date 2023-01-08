@@ -1,15 +1,20 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import s from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
+
+type activeType = {
+    isActive: ReactNode
+}
+const activeClass = ({isActive}: activeType) => isActive ? s.active : ''
 
 const Navbar = () => {
     return (
         <nav className={s.navbar}>
             <div className={s.item}>
-                <NavLink to="/profile" activeClassName={s.active} >Profile</NavLink>
+                <NavLink to="/profile" className={activeClass} >Profile</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to="/dialogs" activeClassName={s.active} >Messages</NavLink>
+                <NavLink to="/dialogs" className={activeClass} >Messages</NavLink>
             </div>
             <div className={s.item}>
                 <NavLink to="" >News</NavLink>
