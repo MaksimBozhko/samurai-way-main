@@ -2,10 +2,12 @@ import React from 'react';
 import {v1} from "uuid";
 
 const SEND_MESSAGE = 'SEND_MESSAGE';
+const NEW_MESSAGE_TEXT = 'NEW_MESSAGE_TEXT';
 
-type InitialStateType = {
+export type DialogsPageType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
+    messageText: string
 }
 export type DialogsType = {
     id: string
@@ -16,7 +18,7 @@ export type MessagesType = {
     message: string
 }
 
-const InitialState: InitialStateType = {
+const InitialState: DialogsPageType = {
     dialogs: [
         {id: v1(), name: 'Anton'},
         {id: v1(), name: 'Sveta'},
@@ -27,7 +29,8 @@ const InitialState: InitialStateType = {
         {id: v1(), message: 'hello!'},
         {id: v1(), message: 'how are you?'},
         {id: v1(), message: 'I\'m ok'},
-    ]
+    ],
+    messageText: ''
 }
 const DialogsReducer = (state = InitialState, action: any) => {
     switch (action.type) {
@@ -35,12 +38,15 @@ const DialogsReducer = (state = InitialState, action: any) => {
             const newMessage = {id: v1(), message: action.message}
             state.messages = [...state.messages, newMessage]
             return state
+        case NEW_MESSAGE_TEXT:
+            state.messageText = action.text
+            return state
         default:
             return state
     }
 };
 
 export const sendMessageAC = (message: string) => ({type: SEND_MESSAGE, message: message})
-
+export const newMessageTextAC = (text: string) => ({type: NEW_MESSAGE_TEXT, text})
 
 export default DialogsReducer;

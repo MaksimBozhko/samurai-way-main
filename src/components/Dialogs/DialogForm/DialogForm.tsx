@@ -1,28 +1,27 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {sendMessageAC} from "../../../redux/dialogs-reducer";
+import React, {ChangeEvent, KeyboardEvent} from 'react';
+import {DialogsPageType, newMessageTextAC, sendMessageAC} from "../../../redux/dialogs-reducer";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 
-type  DialogFormProps = {
-    dispatch: (action: any) => void
-}
 
-const DialogForm = ({dispatch}: DialogFormProps) => {
-    const [message, setMessage] = useState('')
+const DialogForm = () => {
+    const dispatch = useAppDispatch()
+    const {messageText} = useAppSelector((state):DialogsPageType => state.dialogsPage)
     const onChangeMessageHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setMessage(e.currentTarget.value)
+        dispatch(newMessageTextAC(e.currentTarget.value))
     }
     const onClickButtonHandler = () => {
-        dispatch(sendMessageAC(message))
-        setMessage('')
+        dispatch(sendMessageAC(messageText))
+        dispatch(newMessageTextAC(''))
     }
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            dispatch(sendMessageAC(message))
-            setMessage('')
+            dispatch(sendMessageAC(messageText))
+            dispatch(newMessageTextAC(''))
         }
     }
     return (
         <div>
-            <input value={message} onChange={onChangeMessageHandler}
+            <input value={messageText} onChange={onChangeMessageHandler}
                    onKeyDown={onKeyDownHandler} placeholder='Enter your message'/>
             <button onClick={onClickButtonHandler}>Send</button>
         </div>

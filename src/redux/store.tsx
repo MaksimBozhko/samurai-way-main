@@ -1,13 +1,15 @@
+
 import {v1} from "uuid";
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 
 export type StateProps = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogsPageType
+
 }
+/*
 export type ProfilePageType = {
     posts: Array<PostPropsType>
+    postText: string
 }
 export type PostPropsType = {
     id: string
@@ -63,4 +65,4 @@ let store = {
         this._callSubscriber()
     }
 }
-export default store
+export default store*/

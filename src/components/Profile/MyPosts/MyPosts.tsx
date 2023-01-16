@@ -1,29 +1,25 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
-import {addPostAC} from "../../../redux/profile-reducer";
 import Post from "./Post/Post";
-import {PostPropsType} from "../../../redux/store";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
+import {ProfilePageType} from "../../../redux/redux-store";
+import {addPostAC, newPostTextAC} from "../../../redux/profile-reducer";
 
-type MyPostsProps = {
-    posts: Array<PostPropsType>
-    dispatch: (action: any) => void
-}
-
-const MyPosts = ({posts, dispatch}: MyPostsProps) => {
-    const [title, setTitle] = useState<string>('')
+const MyPosts = () => {
+    const dispatch = useAppDispatch()
+    const {posts, postText} = useAppSelector((state):ProfilePageType => state.profilePage)
     const onChangeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setTitle(e.currentTarget.value)
+        dispatch(newPostTextAC(e.currentTarget.value))
     }
     const onClickButtonHandler = () => {
-        dispatch(addPostAC(title))
-        setTitle('')
+        dispatch(addPostAC())
     }
     return (
         <div className={s.postsBlock}>
            <h3>myPosts</h3>
             <div>
                 <div>
-                    <textarea value={title} onChange={onChangeTextareaHandler}></textarea>
+                    <textarea value={postText} onChange={onChangeTextareaHandler}></textarea>
                 </div>
                 <div>
                     <button onClick={onClickButtonHandler}>Send</button>
