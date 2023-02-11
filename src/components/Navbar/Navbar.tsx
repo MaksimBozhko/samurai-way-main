@@ -15,7 +15,7 @@ const linkClass = ({isActive}: activeType) => cn(s.item, {[s.active]: isActive }
 const Navbar = () => {
     return (
         <nav className={s.navbar}>
-            <NavLink to="/profile" className={linkClass}>
+            <NavLink to="/samurai-way-main" className={linkClass}>
                 <AccountCircleIcon />
                 Profile
             </NavLink>

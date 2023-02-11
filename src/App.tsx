@@ -31,8 +31,8 @@ function App() {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route path='/' element={<Navigate to={'/profile'}/>}/>
-                        <Route path='/profile/:userId?' element={<WithNavigateProfile/>}/>
+                        <Route path='/' element={<Navigate to={'/samurai-way-main'}/>}/>
+                        <Route path='/samurai-way-main/:userId?' element={<WithNavigateProfile/>}/>
                         <Route path='/dialogs' element={<WithNavigateDialogs/>}/>
                         <Route path='/users' element={<WithNavigateUsers/>}/>
                         <Route path='/login' element={<Login/>}/>

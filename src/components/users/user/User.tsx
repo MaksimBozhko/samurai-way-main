@@ -19,7 +19,7 @@ const User = ({user}: UserPropsType) => {
     }
     return <Paper key={user.id} className={s.users}>
         <div className={s.imgContainer}>
-            <NavLink to={"/profile/" + user.id}><Avatar className={s.img}
+            <NavLink to={"/samurai-way-main/" + user.id}><Avatar className={s.img}
                                                         sx={{ width: 90, height: 90 }}
                                                         src={avatar}/></NavLink>
         </div>
