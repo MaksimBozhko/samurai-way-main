@@ -1,3 +1,109 @@
-.descriptionBlock {
-    padding: 10px;
+.profile {
+    display: flex;
+    gap: 60px;
+}
+
+.profile_photo {
+    width: 100%;
+    height: 200px;
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(247, 247, 251, 1) 0%, rgba(193, 238, 247, 1) 100%);
+}
+
+.photoBlock {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: -75px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+}
+
+.info {
+    align-self: flex-start;
+}
+
+.img {
+    border-radius: 50%;
+    height: 100px ;
+    box-shadow: 0px 0px 43px 3px rgba(34, 60, 80, 0.45);
+}
+
+.name {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.customFileInput {
+    color: transparent;
+    height: 100%;
+}
+
+.customFileInput::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.customFileInput::before {
+    content: 'Файл не выбран';
+    color: black;
+    display: inline-block;
+    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+}
+
+.customFileInput:hover::before {
+    border-color: black;
+}
+
+.customFileInput:active {
+    outline: 0;
+}
+
+.customFileInput:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.description {
+    height: 110px;
+    z-index: 67;
+}
+.description.hidden {
+    overflow: hidden;
+}
+
+.descriptionText {
+    padding: 15px;
+}
+
+.control {
+    display: flex;
+    gap: 15px;
+}
+
+.settingIcon {
+    animation: rotation 0.5s infinite linear;
+    animation-iteration-count: 1;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(180deg);
+    }
+}
+
+.showMore {
+    display: flex;
+    align-items: center;
 }

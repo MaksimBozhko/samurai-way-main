@@ -1,15 +1,37 @@
 .navbar {
     grid-area: n;
-    background-color: burlywood;
-    padding: 20px;
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.item a {
-    color: white;
+.item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 140px;
+    padding: 10px;
+}
+
+a {
+    color: rgb(69, 68, 68);
     text-decoration: none;
-    margin: auto;
+    font-size: 20px;
+}
+
+.item:hover {
+    background-color: rgb(217, 217, 217);
 }
 
 a.active {
     color: gold;
+}
+
+.line {
+    border: 0;
+    height: 1px;
+    background: rgb(230, 230, 230);
+    width: 115px;
+    margin-top: 25px;
 }

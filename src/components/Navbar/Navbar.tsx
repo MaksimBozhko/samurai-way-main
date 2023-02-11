@@ -1,30 +1,41 @@
 import React, {ReactNode} from 'react';
 import s from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MailIcon from '@mui/icons-material/Mail';
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
+import cn from 'classnames'
 
 type activeType = {
     isActive: ReactNode
 }
-const activeClass = ({isActive}: activeType) => isActive ? s.active : ''
-
+const linkClass = ({isActive}: activeType) => cn(s.item, {[s.active]: isActive })
 const Navbar = () => {
     return (
         <nav className={s.navbar}>
-            <div className={s.item}>
-                <NavLink to="/profile" className={activeClass} >Profile</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to="/dialogs" className={activeClass} >Messages</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to="" >News</NavLink>
-            </div>
-            <div className={s.item}>
-                <a href="" >Music</a>
-            </div>
-            <div className={s.item}>
-                <a href="" >Settings</a>
-            </div>
+            <NavLink to="/profile" className={linkClass}>
+                <AccountCircleIcon />
+                Profile
+            </NavLink>
+            <NavLink to="/dialogs" className={linkClass}>
+                <MailIcon/>
+                Messages
+            </NavLink>
+            <NavLink to="" className={linkClass}>
+                <NewspaperIcon/>
+                News
+            </NavLink>
+            <NavLink to="/users" className={linkClass}>
+                <PeopleOutlineIcon/>
+                Users
+            </NavLink>
+            <NavLink to="" className={linkClass}>
+                <SettingsApplicationsIcon/>
+                Settings
+            </NavLink>
+            <div className={s.line}></div>
         </nav>
     );
 };

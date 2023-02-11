@@ -8,8 +8,8 @@ import {DialogsPageType} from "../../redux/dialogs-reducer";
 
 const Dialogs = () => {
     const {messages, dialogs} = useAppSelector((state):DialogsPageType => state.dialogsPage)
-    const dialogsList = dialogs.map(d => <DialogItem id={d.id} name={d.name} />)
-    const messagesList = messages.map(m => <Message id={m.id} message={m.message} />)
+    const dialogsList = dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name} />)
+    const messagesList = messages.map(m => <Message key={m.id} id={m.id} message={m.message} />)
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItem}>{dialogsList}</div>

@@ -1,5 +1,25 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 .postsBlock {
-    padding: 10px;
+    max-width: 600px;
+    width: 100%;
+    padding: 30px;
+}
+
+.form {
+    display: flex;
+    gap: 20px;
+}
+.input_form {
+    max-width: 400px;
+    width: 100%;
+}
+
+.btn_form {
+    height: 55px;
+    border-radius: 15px;
 }
 
 .posts {
