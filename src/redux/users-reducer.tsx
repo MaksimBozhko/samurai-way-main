@@ -3,68 +3,21 @@ import {AppThunk} from "./redux-store";
 import {usersAPI} from "../API/usersAPI";
 import {followAPI} from "../API/followAPI";
 
-export type UsersType = {
-    users: UserType[]
-    pageSize: number
-    totalUserCount: number
-    currentPage: number
-    isFetching: boolean
-    friends: Array<UserType>
-}
-export type UserType = {
-    id: string
-    followed: boolean
-    name: string
-    status?: string
-    photos: any
-}
-export const initialState: UsersType = {
-    users: [],
+
+export const initialState = {
+    users: [] as UserType[],
     pageSize: 20,
     totalUserCount: 0,
     currentPage: 1,
     isFetching: false,
-    friends: [
-        {
-            name: "__d_zh__",
-            id: '27613',
-            photos: {
-                small: null,
-                large: null
-            },
-            followed: false
-        },
-        {
-            name: "jenia321",
-            id: '27612',
-            photos: {
-                "small": null,
-                "large": null
-            },
-            followed: false
-        },
-        {
-            name: "no1s9",
-            id: '27611',
-            photos: {
-                "small": "https://social-network.samuraijs.com/activecontent/images/users/27611/user-small.jpg?v=1",
-                "large": "https://social-network.samuraijs.com/activecontent/images/users/27611/user.jpg?v=1"
-            },
-            followed: false
-        },
-        {
-            name: "noisy",
-            id: '27610',
-            photos: {
-                "small": null,
-                "large": null
-            },
-            followed: false
-        },
-    ]
+    friends: [] as UserType[],
+    filter: {
+        term: '',
+        friend: null as null | boolean
+    }
 }
 
-const ProfileReducer = (state = initialState, action: usersMainType) => {
+const ProfileReducer = (state: UsersType = initialState, action: usersMainType) => {
     switch (action.type) {
         case 'FOLLOW':
             return {
@@ -79,29 +32,30 @@ const ProfileReducer = (state = initialState, action: usersMainType) => {
             return {...state, currentPage: action.payload.currentPage}
         case 'TOGGLE_IS_FETCHING':
             return {...state, isFetching: action.payload.isFetching}
+        case 'SET_FILTER':
+            return {...state, filter: action.payload}
+        case 'SET_FRIENDS':
+            return {...state, friends: action.payload}
         default:
             return state
     }
 };
 
-export type usersMainType = followACType | setUsersACType | setTotalUsersCountAType |
-    setCurrentPageACType | setIsFetchingACType
-type followACType = ReturnType<typeof followAC>
-type setUsersACType = ReturnType<typeof setUsersAC>
-type setTotalUsersCountAType = ReturnType<typeof setTotalUsersCountAC>
-type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
-type setIsFetchingACType = ReturnType<typeof setIsFetchingAC>
-
+//action creator
 export const followAC = (userId: string) => ({type: 'FOLLOW', payload: {userId}} as const)
 export const setUsersAC = (users: UserType[]) => ({type: 'SET_USERS', payload: {users}} as const)
 export const setTotalUsersCountAC = (totalUsersCount: number) => ({type: 'SET_TOTAL_USER_COUNT', payload: {totalUsersCount}} as const)
 export const setCurrentPageAC = (currentPage: number) => ({type: 'SET_CURRENT_PAGE', payload: {currentPage}} as const)
 export const setIsFetchingAC = (isFetching: boolean) => ({type: 'TOGGLE_IS_FETCHING', payload: {isFetching}} as const)
+export const setFilterAC = (filter: FormType) => ({type: 'SET_FILTER', payload: filter} as const)
+export const setFriendsAC = (friends: UserType[]) => ({type: 'SET_FRIENDS', payload: friends} as const)
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number): AppThunk => async (dispatch) => {
+//thunk
+export const getUsersThunkCreator = (currentPage: number, pageSize: number, term: string, friend: FriendType): AppThunk => async (dispatch) => {
     dispatch(setCurrentPageAC(currentPage))
     dispatch(setIsFetchingAC(true))
-    const response = await usersAPI.getUsers(currentPage, pageSize)
+    dispatch(setFilterAC({term, friend}))
+    const response = await usersAPI.getUsers(currentPage, pageSize, term, friend)
     dispatch(setIsFetchingAC(false))
     dispatch(setUsersAC(response.items))
     dispatch(setTotalUsersCountAC(response.totalCount))
@@ -110,5 +64,46 @@ export const followThunkCreator = (followed: boolean, userId: string): AppThunk 
     const response = followed ? await followAPI.unfollow(userId) : await followAPI.follow(userId)
     if (response.resultCode === 0) dispatch(followAC(userId))
 };
+export const getFriendsThunkCreator = (): AppThunk => async (dispatch) => {
+    const response = await usersAPI.getFriends()
+    dispatch(setFriendsAC(response.items))
+};
+
+
+//types
+export type UsersType = {
+    users:  UserType[]
+    friends:  UserType[]
+    pageSize: number
+    totalUserCount: number
+    currentPage: number
+    isFetching: boolean
+    filter: {
+        term: string
+        friend: FriendType
+    }
+}
+export type UserType = {
+    id: string
+    followed: boolean
+    name: string
+    status?: string
+    photos: UserPhotosType
+}
+export type UserPhotosType = {small: string, large: string}
+export type FriendType = null | boolean
+type initialStateType = typeof initialState
+export type FormType = typeof initialState.filter
+//actions type
+export type usersMainType = followACType | setUsersACType | setTotalUsersCountAType |
+    setCurrentPageACType | setIsFetchingACType | setFilterACType | setFriendsACType
+type followACType = ReturnType<typeof followAC>
+type setUsersACType = ReturnType<typeof setUsersAC>
+type setTotalUsersCountAType = ReturnType<typeof setTotalUsersCountAC>
+type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
+type setIsFetchingACType = ReturnType<typeof setIsFetchingAC>
+type setFilterACType = ReturnType<typeof setFilterAC>
+type setFriendsACType = ReturnType<typeof setFriendsAC>
+
 
 export default ProfileReducer;

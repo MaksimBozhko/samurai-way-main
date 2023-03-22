@@ -17,7 +17,6 @@ let WithNavigateDialogs = WithAuthNavigate(Dialogs)
 let WithNavigateUsers = WithAuthNavigate(Users)
 
 function App() {
-    console.log('profile')
     const dispatch = useAppDispatch()
     const initialized = useAppSelector(state => state.app.initialized)
     useEffect(() => {

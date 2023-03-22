@@ -5,8 +5,7 @@ import {NavLink} from "react-router-dom";
 import {useAppDispatch} from "../../../hooks/hooks";
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
-import Avatar from "@mui/material/Avatar";
-import avatar from '../../../assets/images/avatar.webp'
+import {UserPhoto} from '../../common/userPhoto/UserPhoto';
 
 type UserPropsType = {
     user: UserType
@@ -19,9 +18,7 @@ const User = ({user}: UserPropsType) => {
     }
     return <Paper key={user.id} className={s.users}>
         <div className={s.imgContainer}>
-            <NavLink to={"/samurai-way-main/" + user.id}><Avatar className={s.img}
-                                                        sx={{ width: 90, height: 90 }}
-                                                        src={avatar}/></NavLink>
+            <NavLink to={"/samurai-way-main/" + user.id}><UserPhoto clasName={s.userPhoto} photos={user.photos} /></NavLink>
         </div>
         <div className={s.description}>
             <div className={s.text}>

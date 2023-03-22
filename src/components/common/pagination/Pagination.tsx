@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
-import s from "../../users/users.module.css";
-import {getUsersThunkCreator} from "../../../redux/users-reducer";
-import {useAppDispatch} from "../../../hooks/hooks";
+import s from "./pagination.module.css";
+import {getUsersThunkCreator, UsersType} from '../../../redux/users-reducer';
+import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
+import leftArrow from '../../../assets/images/left-arrow.png'
+import rightArrow from '../../../assets/images/right-arrow.png'
 
 type PaginationType = {
     totalUserCount: number
@@ -12,6 +14,7 @@ type PaginationType = {
 
 const Pagination = ({totalUserCount, pageSize, currentPage, portionSize = 10}: PaginationType) => {
     const dispatch = useAppDispatch()
+    const {filter} = useAppSelector((state): UsersType => state.users)
     const pageCount = Math.ceil(totalUserCount / pageSize)
     let pages = []
     for (let i = 1; i <= pageCount; i++) {
@@ -24,18 +27,22 @@ const Pagination = ({totalUserCount, pageSize, currentPage, portionSize = 10}: P
     const rightPortionPageNumber = portionNumber * portionSize
 
     const onClickSelectedPage = (pageNumber: number) => {
-        dispatch(getUsersThunkCreator(pageNumber, pageSize))
+        dispatch(getUsersThunkCreator(pageNumber, pageSize, filter.term, filter.friend))
     }
-    return <>
+    return <div className={s.pagination}>
         {portionNumber > 1 &&
-        <button onClick={() => setPortionNumber(portionNumber - 1)}> left </button> }
+        <button className={`${s.btn} ${s.page}`} onClick={() => setPortionNumber(portionNumber - 1)}>
+            <img className={s.arrow} src={leftArrow}/>
+        </button> }
         {pages
             .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
             .map((p) => <span key={p} onClick={() => onClickSelectedPage(p)}
-                                   className={currentPage == p ? s.selected : ''}>{p}</span>)}
+                                   className={currentPage == p ? `${s.selected} ${s.page}` : s.page}>{p}</span>)}
         {portionCount > portionNumber &&
-            <button onClick={() => setPortionNumber(portionNumber + 1)}> right </button> }
-    </>
+            <button className={`${s.btn} ${s.page}`} onClick={() => setPortionNumber(portionNumber + 1)}>
+                <img className={s.arrow} src={rightArrow}/>
+            </button> }
+    </div>
 };
 
 export default Pagination;

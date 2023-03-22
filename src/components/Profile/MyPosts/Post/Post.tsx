@@ -1,11 +1,14 @@
 import React from 'react';
 import s from './Post.module.css'
 import {PostPropsType} from "../../../../redux/redux-store";
+import {UserPhoto} from '../../../common/userPhoto/UserPhoto';
+import {useAppSelector} from '../../../../hooks/hooks';
 
 const Post = (props: PostPropsType) => {
+    const {photos} = useAppSelector(state => state.profilePage.profile)
     return (
         <div className={s.post}>
-            <img src="https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black-thumbnail.png" alt=""/>
+            <UserPhoto clasName={s.userPhoto} photos={photos} />
             {props.message}
             <div>
                 <span>like:{props.likesCount}</span>

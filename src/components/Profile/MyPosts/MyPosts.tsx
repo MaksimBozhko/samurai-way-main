@@ -20,6 +20,7 @@ const MyPosts = () => {
     }
     return (
         <Paper className={s.postsBlock}>
+            <h3 className={s.title}>POSTS</h3>
             <div className={s.form}>
                 <TextField value={postText} onChange={onChangeTextareaHandler}
                            style={{}}

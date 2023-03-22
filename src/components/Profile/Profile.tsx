@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './Profile.module.css'
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPosts from "./MyPosts/MyPosts";
-import ChatPage from "../../pages/chatPage/ChatPage";
+import ProfileInfo from './ProfileInfo/ProfileInfo';
+import MyPosts from './MyPosts/MyPosts';
+import Friends from './blockFriends/Friends';
 
 const Profile = () => {
     return (
@@ -10,7 +10,7 @@ const Profile = () => {
             <ProfileInfo/>
             <div className={s.info}>
                 <MyPosts />
-                <ChatPage />
+                <Friends />
             </div>
         </div>
     );

@@ -17,7 +17,7 @@ const Login = () => {
     const {isAuth, captchaUrl} = useAppSelector((state): AuthInitialType => state.auth)
     const {register, handleSubmit, formState: {errors}} = useForm<FormType>();
     const onSubmit: SubmitHandler<FormType> = data => dispatch(loginThunkCreator(data));
-    if (isAuth) return <Navigate to='/profile'/>
+    if (isAuth) return <Navigate to='/samurai-way-main'/>
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)} className={s.form}>

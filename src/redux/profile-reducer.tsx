@@ -42,12 +42,9 @@ const ProfileReducer = (state = initialState, action: profileMainType) => {
     switch (action.type) {
         case 'ADD_POST':
             const newPost = {id: v1(), message: state.postText, likesCount: 0}
-            state.posts = [...state.posts, newPost]
-            state.postText = ''
-            return state
+            return {...state, posts: [newPost, ...state.posts]}
         case 'NEW_POST_TEXT':
-            state.postText = action.payload.text
-            return state
+            return {...state, postText: action.payload.text}
         case 'SET_PROFILE':
             return {...state, profile: action.payload.profile}
         case 'SET_STATUS':
